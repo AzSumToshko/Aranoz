@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns="http://www.w3.org/1999/html"
+      layout:decorate="Shared/_layout" lang="bg">
+<head>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <!-- animate CSS -->
+    <link rel="stylesheet" href="/css/animate.css">
+    <!-- owl carousel CSS -->
+    <link rel="stylesheet" href="/css/owl.carousel.min.css">
+    <!-- nice select CSS -->
+    <link rel="stylesheet" href="/css/nice-select.css">
+    <!-- font awesome CSS -->
+    <link rel="stylesheet" href="/css/all.css">
+    <!-- flaticon CSS -->
+    <link rel="stylesheet" href="/css/flaticon.css">
+    <link rel="stylesheet" href="/css/themify-icons.css">
+    <!-- font awesome CSS -->
+    <link rel="stylesheet" href="/css/magnific-popup.css">
+    <!-- swiper CSS -->
+    <link rel="stylesheet" href="/css/slick.css">
+    <link rel="stylesheet" href="/css/price_rangs.css">
+    <!-- style CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<div layout:fragment="content">
+
+    <!--================Home Banner Area =================-->
+    <!-- breadcrumb start-->
+    <section class="breadcrumb breadcrumb_bg">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="breadcrumb_iner">
+                        <div class="breadcrumb_iner_item">
+                            <h2>Разплащане</h2>
+                            <p>Home <span>-</span> Количка <span>-</span> Разплащане</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- breadcrumb start-->
+
+    <!--================Checkout Area =================-->
+    <section class="checkout_area padding_top">
+        <div class="container">
+            <div class="returning_customer">
+
+                <form id="checkout-form" th:action="@{/Order/payment}" th:object="${model}" method="POST" novalidate="novalidate">
+                    <input type="hidden" field="order.firstName" name="order.firstName" th:value="${createdOrder.firstName}">
+                    <input type="hidden" field="order.lastName" name="order.lastName" th:value="${createdOrder.lastName}">
+                    <input type="hidden" field="order.company" name="order.company" th:value="${createdOrder.company}">
+                    <input type="hidden" field="order.phoneNumber" name="order.phoneNumber" th:value="${createdOrder.phoneNumber}">
+                    <input type="hidden" field="order.email" name="order.email" th:value="${createdOrder.email}">
+                    <input type="hidden" field="order.addressOne" name="order.addressOne" th:value="${createdOrder.addressOne}">
+                    <input type="hidden" field="order.addressTwo" name="order.addressTwo" th:value="${createdOrder.addressTwo}">
+                    <input type="hidden" field="order.city" name="order.city" th:value="${createdOrder.city}">
+                    <input type="hidden" field="order.zip" name="order.zip" th:value="${createdOrder.zip}">
+                    <input type="hidden" field="order.message" name="order.message" th:value="${createdOrder.message}">
+                    <input type="hidden" field="order.total" name="order.total" th:value="${createdOrder.total}">
+                    <input type="hidden" field="order.ProductAndQuantities" name="order.ProductAndQuantities" th:value="${createdOrder.ProductAndQuantities}">
+                    <input type="hidden" id="payment-method" field="method" name="method" value="CASH">
+                    <div class="billing_details">
+                        <div class="row col-lg-12">
+                            <div class="col-lg-12">
+                                <div class="order_box">
+                                    <h2>Твоята поръчка</h2>
+                                    <ul class="list">
+                                        <li>
+                                            <a href="#">Продукт
+                                                <span>Общо</span>
+                                            </a>
+                                        </li>
+
+                                        <li th:each="item : ${items}">
+                                            <a href="#">
+                                                <span style="float: left;" th:text="${item.product.name}"></span>
+                                                <span class="middle" th:text="'x '+${item.quantity}"></span>
+                                                <span class="last" th:text="${#numbers.formatDecimal(item.product.price, 0, 2)} + 'лв.'"></span>
+                                            </a>
+                                        </li>
+
+                                    </ul>
+                                    <ul class="list list_2">
+                                        <li>
+                                            <a href="#">Междинна сума
+                                                <span th:text="${#numbers.formatDecimal(subtotal, 0, 2)}"></span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Доставка
+                                                <span>цена за доставка: 5лв.</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Общо
+                                                <span id="total-price" th:text="${#numbers.formatDecimal(total, 0, 2)}"></span>
+                                            </a>
+                                        </li>
+                                    </ul>
+
+                                    <div style="padding-top: 10px; padding-bottom: 15px; text-align: center; align-content: center">
+                                        <input class="btn_5" style="margin: 0 auto;" id="submitBtn" value="Наложен платеж" type="submit">
+                                    </div>
+
+                                    <div style="margin: 0 auto; text-align: center; align-content: center;">
+                                    <div id="paypal-button-container">
+
+                                    </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+    <!--================End Checkout Area =================-->
+    <script src="https://www.paypal.com/sdk/js?client-id=Ae3tHpr-yczbhy6qceXfoIr5lNOTuk8SJdELlOd9cqEMEVPB7WSA4RNf_y-pYuxD6zxI0bFoPpYCH2tz&enable-funding=venmo&currency=EUR"></script>
+    <script>
+        var total = (parseFloat(document.getElementById("total-price").innerText)/2).toFixed(2);
+        paypal.Buttons({
+            style: {
+                shape: 'rect',
+                color: 'gold',
+                layout: 'vertical',
+                label: 'paypal',
+
+            },
+
+
+            createOrder: function(data, actions) {
+                return actions.order.create({
+                    purchase_units: [{"amount":{"currency_code":"EUR","value":total}}]
+                });
+            },
+
+            onApprove: function(data, actions) {
+                return actions.order.capture().then(function(orderData) {
+
+                    // Full available details
+                    console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
+
+                    // Show a success message within this page, e.g.
+                    const element = document.getElementById('paypal-button-container');
+                    element.innerHTML = '';
+                    element.innerHTML = '<h3>Thank you for your payment!</h3>';
+
+
+                    document.getElementById("payment-method").value="CARD";
+                    document.getElementById("checkout-form").submit();
+
+                });
+            },
+
+            onError: function(err) {
+                console.log(err);
+            }
+        }).render('#paypal-button-container');
+    </script>
+
+    <!-- jquery plugins here-->
+    <!-- jquery -->
+    <script src="/js/jquery-1.12.1.min.js"></script>
+    <!-- popper js -->
+    <script src="/js/popper.min.js"></script>
+    <!-- bootstrap js -->
+    <script src="/js/bootstrap.min.js"></script>
+    <!-- easing js -->
+    <script src="/js/jquery.magnific-popup.js"></script>
+    <!-- swiper js -->
+    <script src="/js/swiper.min.js"></script>
+    <!-- swiper js -->
+    <script src="/js/masonry.pkgd.js"></script>
+    <!-- particles js -->
+    <script src="/js/owl.carousel.min.js"></script>
+    <script src="/js/jquery.nice-select.min.js"></script>
+    <!-- slick js -->
+    <script src="/js/slick.min.js"></script>
+    <script src="/js/jquery.counterup.min.js"></script>
+    <script src="/js/waypoints.min.js"></script>
+    <script src="/js/contact.js"></script>
+    <script src="/js/jquery.ajaxchimp.min.js"></script>
+    <script src="/js/jquery.form.js"></script>
+    <script src="/js/jquery.validate.min.js"></script>
+    <script src="/js/mail-script.js"></script>
+    <script src="/js/stellar.js"></script>
+    <script src="/js/price_rangs.js"></script>
+    <!-- custom js -->
+    <script src="/js/custom.js"></script>
+</div>
+</html>

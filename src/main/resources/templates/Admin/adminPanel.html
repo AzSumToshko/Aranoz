@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="Shared/_layout" lang="bg">
+<head>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <!-- animate CSS -->
+    <link rel="stylesheet" href="/css/animate.css">
+    <!-- owl carousel CSS -->
+    <link rel="stylesheet" href="/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="/css/lightslider.min.css">
+    <!-- font awesome CSS -->
+    <link rel="stylesheet" href="/css/all.css">
+    <!-- flaticon CSS -->
+    <link rel="stylesheet" href="/css/flaticon.css">
+    <link rel="stylesheet" href="/css/themify-icons.css">
+    <link rel="stylesheet" href="/css/nice-select.css">
+    <!-- font awesome CSS -->
+    <link rel="stylesheet" href="/css/magnific-popup.css">
+    <!-- swiper CSS -->
+    <link rel="stylesheet" href="/css/slick.css">
+    <!-- style CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<div layout:fragment="content">
+
+    <!-- breadcrumb start-->
+    <section class="breadcrumb breadcrumb_bg">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="breadcrumb_iner">
+                        <div class="breadcrumb_iner_item">
+                            <h2>Администраторски панел</h2>
+                            <p>Начало <span>-</span> Акаунт <span>-</span> Администраторски панел</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- breadcrumb start-->
+
+    <section class="product_description_area">
+        <div class="container">
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile"
+                       aria-selected="true">Потребители</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact"
+                       aria-selected="false">Продукти</a>
+                </li>
+            </ul>
+            <div class="tab-content" id="myTabContent">
+
+
+                <div class="tab-pane fade active show" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+
+                    <div class="section-top-border">
+                        <h3 class="mb-30">Операции с потребители</h3>
+                        <a class="btn_3" href="/Admin/createUser" style="margin-bottom: 20px;">Създай</a>
+                        <div class="progress-table-wrap" >
+                            <div class="progress-table">
+                                <div class="table-head">
+                                    <div class="serial">Роля</div>
+                                    <div class="country" >Име</div>
+                                    <div class="visit" >Имейл</div>
+                                    <div class="percentage">Действия</div>
+                                </div>
+
+                                <div class="table-row" th:each="user: ${users}">
+                                    <div class="serial" th:text="${user.role.size == 1} ? ${user.role.get(0).role} : ${user.role.get(0).role}+ ' / ' +${user.role.get(1).role}"></div>
+                                    <div class="country" th:text="${user.firstName} + ' ' + ${user.lastName}"></div>
+                                    <div class="visit" th:text="${user.email}"></div>
+                                    <div class="percentage">
+                                        <a class="btn_3" style="margin-right: 5px;" th:href="'/Admin/updateUser/' + ${user.id}">Промяна</a>
+                                        <a class="btn_3" th:href="'/Admin/deleteUser/' + ${user.id}">Изтриване</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+
+                    <div class="section-top-border">
+                        <h3 class="mb-30">Операции с продукти</h3>
+                        <a class="btn_3" href="/Admin/createProduct" style="margin-bottom: 20px;">Създай</a>
+                        <div class="progress-table-wrap" >
+                            <div class="progress-table">
+                                <div class="table-head">
+                                    <div class="serial">Категория</div>
+                                    <div class="country" >Име</div>
+                                    <div class="visit" >цена</div>
+                                    <div class="percentage">Действия</div>
+                                </div>
+
+                                <div class="table-row" th:each="product: ${products}">
+                                    <div class="serial" th:text="${product.category.category}"></div>
+                                    <div class="country" th:text="${product.name}"></div>
+                                    <div class="visit" th:text="${product.price}"></div>
+                                    <div class="percentage">
+                                        <a class="btn_3" style="margin-right: 5px;" th:href="'/Admin/updateProduct/' + ${product.id}">Промяна</a>
+                                        <a class="btn_3" th:href="'/Admin/deleteProduct/' + ${product.id}">Изтриване</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+
+    <!-- jquery plugins here-->
+    <!-- jquery -->
+    <script src="/js/jquery-1.12.1.min.js"></script>
+    <!-- popper js -->
+    <script src="/js/popper.min.js"></script>
+    <!-- bootstrap js -->
+    <script src="/js/bootstrap.min.js"></script>
+    <!-- easing js -->
+    <script src="/js/jquery.magnific-popup.js"></script>
+    <!-- swiper js -->
+    <script src="/js/lightslider.min.js"></script>
+    <!-- swiper js -->
+    <script src="/js/masonry.pkgd.js"></script>
+    <!-- particles js -->
+    <script src="/js/owl.carousel.min.js"></script>
+    <script src="/js/jquery.nice-select.min.js"></script>
+    <!-- slick js -->
+    <script src="/js/slick.min.js"></script>
+    <script src="/js/swiper.jquery.js"></script>
+    <script src="/js/jquery.counterup.min.js"></script>
+    <script src="/js/waypoints.min.js"></script>
+    <script src="/js/contact.js"></script>
+    <script src="/js/jquery.ajaxchimp.min.js"></script>
+    <script src="/js/jquery.form.js"></script>
+    <script src="/js/jquery.validate.min.js"></script>
+    <script src="/js/mail-script.js"></script>
+    <script src="/js/stellar.js"></script>
+    <!-- custom js -->
+    <script src="/js/theme.js"></script>
+    <script src="/js/custom.js"></script>
+</div>
+</html>

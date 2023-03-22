@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns="http://www.w3.org/1999/html"
+      layout:decorate="Shared/_layout" lang="bg">
+<head>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.min.css">
+  <!-- animate CSS -->
+  <link rel="stylesheet" href="/css/animate.css">
+  <!-- owl carousel CSS -->
+  <link rel="stylesheet" href="/css/owl.carousel.min.css">
+  <!-- nice select CSS -->
+  <link rel="stylesheet" href="/css/nice-select.css">
+  <!-- font awesome CSS -->
+  <link rel="stylesheet" href="/css/all.css">
+  <!-- flaticon CSS -->
+  <link rel="stylesheet" href="/css/flaticon.css">
+  <link rel="stylesheet" href="/css/themify-icons.css">
+  <!-- font awesome CSS -->
+  <link rel="stylesheet" href="/css/magnific-popup.css">
+  <!-- swiper CSS -->
+  <link rel="stylesheet" href="/css/slick.css">
+  <link rel="stylesheet" href="/css/price_rangs.css">
+  <!-- style CSS -->
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<div layout:fragment="content">
+
+<!--================Home Banner Area =================-->
+<!-- breadcrumb start-->
+<section class="breadcrumb breadcrumb_bg">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-8">
+        <div class="breadcrumb_iner">
+          <div class="breadcrumb_iner_item">
+            <h2>Разплащане</h2>
+            <p>Home <span>-</span> Количка <span>-</span> Разплащане</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- breadcrumb start-->
+
+<!--================Checkout Area =================-->
+<section class="checkout_area padding_top">
+  <div class="container">
+    <div class="returning_customer">
+
+      <form th:action="@{/Order/checkout}" th:object="${orderCheckoutFormDto}" method="POST" novalidate="novalidate">
+        <input type="hidden" name="total" th:value="${total}">
+        <input type="hidden" name="stringCookies" th:value="${cookies}">
+        <div class="billing_details">
+          <div class="row col-lg-12">
+        <div class="col-lg-7">
+          <h3>Детайли по поръчката</h3>
+
+
+            <div class="col-md-12 form-group">
+              <input type="text" class="form-control" id="first" name="firstName" placeholder="Име *" th:value="*{firstName}"/>
+              <p th:if="${#fields.hasErrors('firstName')}"
+                 class="alert-danger" style="margin-top: 5px; text-align:center; border-radius:5px;">
+                Името не е валидно
+              </p>
+            </div>
+            <div class="col-md-12 form-group">
+              <input type="text" class="form-control" id="last" name="lastName" placeholder="Фамилия *" th:value="*{lastName}"/>
+              <p th:if="${#fields.hasErrors('lastName')}"
+                      class="alert-danger" style="margin-top: 5px; text-align:center; border-radius:5px;">
+                Фамилията не е валидна
+              </p>
+            </div>
+            <div class="col-md-12 form-group">
+              <input type="text" class="form-control" id="company" name="company" placeholder="Име на компанията" th:value="*{company}"/>
+            </div>
+            <div class="col-md-12 form-group">
+              <input type="text" class="form-control" id="number" name="phoneNumber" placeholder="Телефонен номер *" th:value="*{phoneNumber}"/>
+              <p th:if="${#fields.hasErrors('phoneNumber')}"
+                      class="alert-danger" style="margin-top: 5px; text-align:center; border-radius:5px;">
+                Телефонният номер не е валиден
+              </p>
+            </div>
+            <div class="col-md-12 form-group">
+              <input type="text" class="form-control" id="email" name="email" placeholder="Имейл *" th:value="*{email}"/>
+              <p th:if="${#fields.hasErrors('email')}"
+                      class="alert-danger" style="margin-top: 5px; text-align:center; border-radius:5px;">
+                Имейлът не е валиден
+              </p>
+            </div>
+            <div class="col-md-12 form-group">
+              <input type="text" class="form-control" id="add1" name="addressOne" placeholder="Адрес за доставка 1 *" th:value="*{addressOne}"/>
+              <p th:if="${#fields.hasErrors('addressOne')}"
+                      class="alert-danger" style="margin-top: 5px; text-align:center; border-radius:5px;">
+                Адресът не е валиден
+              </p>
+            </div>
+            <div class="col-md-12 form-group">
+              <input type="text" class="form-control" id="add2" name="addressTwo" placeholder="Адрес за доставка 2" th:value="*{addressTwo}"/>
+            </div>
+            <div class="col-md-12 form-group">
+              <input type="text" class="form-control" id="city" name="city" placeholder="Град/Село *" th:value="*{city}" />
+              <p th:if="${#fields.hasErrors('city')}"
+                      class="alert-danger" style="margin-top: 5px; text-align:center; border-radius:5px;">
+                Градът не е валиден
+              </p>
+            </div>
+            <div class="col-md-12 form-group">
+              <input type="text" class="form-control" id="zip" name="zip" placeholder="Пощенски код *" th:value="*{zip}"/>
+              <p th:if="${#fields.hasErrors('zip')}"
+                      class="alert-danger" style="margin-top: 5px; text-align:center; border-radius:5px;">
+                Пощенският код не е валиден
+              </p>
+            </div>
+            <div class="col-md-12 form-group">
+              <textarea class="form-control" name="message" id="message" rows="1" cols="5" th:value="*{message}"
+                        placeholder="Бележки за поръчката" style="height: 150px;"></textarea>
+            </div>
+
+        </div>
+        <div class="col-lg-5">
+          <div class="order_box">
+            <h2>Твоята поръчка</h2>
+            <ul class="list">
+              <li>
+                <a href="#">Продукт
+                  <span>Общо</span>
+                </a>
+              </li>
+
+              <li th:each="item : ${items}">
+                <a href="#">
+                  <span style="float: left;" th:text="${item.product.name}"></span>
+                  <span class="middle" th:text="'x '+${item.quantity}"></span>
+                  <span class="last" th:text="${#numbers.formatDecimal(item.product.price, 0, 2)} + 'лв.'"></span>
+                </a>
+              </li>
+
+            </ul>
+            <ul class="list list_2">
+              <li>
+                <a href="#">Междинна сума
+                  <span th:text="${#numbers.formatDecimal(subtotal, 0, 2)}"></span>
+                </a>
+              </li>
+              <li>
+                <a href="#">Доставка
+                  <span>цена за доставка: 5лв.</span>
+                </a>
+              </li>
+              <li>
+                <a href="#">Общо
+                  <span th:text="${#numbers.formatDecimal(total, 0, 2)}"></span>
+                </a>
+              </li>
+            </ul>
+            <div class="creat_account">
+              <input type="checkbox" id="f-option4" name="selector" />
+              <label for="f-option4">Прочетох и съм съгласен с</label>
+              <a href="#">условията и правилата</a>
+            </div>
+            <input style="margin: 0 auto;" class="btn_3" id="submitBtn" value="Продължете до плащане" type="submit">
+          </div>
+        </div>
+      </div>
+    </div>
+      </form>
+  </div>
+  </div>
+</section>
+<!--================End Checkout Area =================-->
+
+  <script type="text/javascript">
+    document.getElementById("submitBtn").disabled = true;
+
+    document.getElementById("f-option4").addEventListener("change", function() {
+      if (this.checked) {
+        document.getElementById("submitBtn").disabled = false;
+      } else {
+        document.getElementById("submitBtn").disabled = true;
+      }
+    });
+  </script>
+<!-- jquery plugins here-->
+<!-- jquery -->
+<script src="/js/jquery-1.12.1.min.js"></script>
+<!-- popper js -->
+<script src="/js/popper.min.js"></script>
+<!-- bootstrap js -->
+<script src="/js/bootstrap.min.js"></script>
+<!-- easing js -->
+<script src="/js/jquery.magnific-popup.js"></script>
+<!-- swiper js -->
+<script src="/js/swiper.min.js"></script>
+<!-- swiper js -->
+<script src="/js/masonry.pkgd.js"></script>
+<!-- particles js -->
+<script src="/js/owl.carousel.min.js"></script>
+<script src="/js/jquery.nice-select.min.js"></script>
+<!-- slick js -->
+<script src="/js/slick.min.js"></script>
+<script src="/js/jquery.counterup.min.js"></script>
+<script src="/js/waypoints.min.js"></script>
+<script src="/js/contact.js"></script>
+<script src="/js/jquery.ajaxchimp.min.js"></script>
+<script src="/js/jquery.form.js"></script>
+<script src="/js/jquery.validate.min.js"></script>
+<script src="/js/mail-script.js"></script>
+<script src="/js/stellar.js"></script>
+<script src="/js/price_rangs.js"></script>
+<!-- custom js -->
+<script src="/js/custom.js"></script>
+</div>
+</html>

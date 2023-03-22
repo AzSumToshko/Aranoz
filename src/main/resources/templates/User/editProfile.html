@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="Shared/_layout" lang="bg">
+<head>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <!-- animate CSS -->
+    <link rel="stylesheet" href="/css/animate.css">
+    <!-- owl carousel CSS -->
+    <link rel="stylesheet" href="/css/owl.carousel.min.css">
+    <!-- font awesome CSS -->
+    <link rel="stylesheet" href="/css/all.css">
+    <!-- flaticon CSS -->
+    <link rel="stylesheet" href="/css/flaticon.css">
+    <link rel="stylesheet" href="/css/themify-icons.css">
+    <!-- font awesome CSS -->
+    <link rel="stylesheet" href="/css/magnific-popup.css">
+    <!-- swiper CSS -->
+    <link rel="stylesheet" href="/css/slick.css">
+    <!-- style CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/nice-select.css">
+</head>
+<div layout:fragment="content">
+    <!-- breadcrumb start-->
+    <section class="breadcrumb breadcrumb_bg">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="breadcrumb_iner">
+                        <div class="breadcrumb_iner_item">
+                            <h2>Промени данните си!</h2>
+                            <p>Акаунт <span>-</span> Профил <span>-</span> Промени данни</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- breadcrumb start-->
+
+    <!--================login_part Area =================-->
+    <section class="login_part padding_top">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-12 col-md-12">
+                    <div class="login_part_form">
+                        <div class="login_part_form_iner">
+                            <h3 style="text-align: center;">Променете данните си!</h3>
+                            <a class="btn_3" href="/User/profile" style="margin-bottom: 40px;">
+                                Назад
+                            </a>
+                            <form class="row contact_form" th:action="@{/User/editProfile/{id}}" th:method="POST" th:object="${userProfileEditDto}" novalidate="novalidate">
+                                <input type="hidden" id="id" name="id" th:value="${userProfileEditDto.id}">
+                                <div class="col-md-12 form-group p_star">
+                                    <input type="text" class="form-control" id="firstName" name="firstName" th:value="${userProfileEditDto.firstName}"
+                                           placeholder="Име">
+                                    <p th:if="${#fields.hasErrors('firstName')}"
+                                       class="alert-danger" style="margin-top: 5px; text-align:center; border-radius:5px;">
+                                        Името трябва да се състои от 3 до 20 символа
+                                    </p>
+                                </div>
+                                <div class="col-md-12 form-group p_star">
+                                    <input type="text" class="form-control" id="lastName" name="lastName" th:value="${userProfileEditDto.lastName}"
+                                           placeholder="Фамилия">
+                                    <p th:if="${#fields.hasErrors('lastName')}"
+                                       class="alert-danger" style="margin-top: 5px; text-align:center; border-radius:5px;">
+                                        Фамилията трябва да се състои от 3 до 20 символа
+                                    </p>
+                                </div>
+                                <div class="col-md-12 form-group p_star">
+                                    <input type="text" class="form-control" id="email" name="email" th:value="${userProfileEditDto.email}"
+                                           placeholder="Имейл">
+                                    <p th:if="${#fields.hasErrors('email')}"
+                                       class="alert-danger" style="margin-top: 5px; text-align:center; border-radius:5px;">
+                                        Имейлът не е валиден
+                                    </p>
+                                </div>
+                                <div class="col-md-12 form-group">
+                                    <button type="submit" value="Промени" class="btn_3">
+                                        Промени
+                                    </button>
+                                    <p th:if="${EmailIsTaken != null}" th:text="${EmailIsTaken}"
+                                       class="alert-danger" style="margin-top: 5px; text-align:center; border-radius:5px;">
+                                    </p>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--================login_part end =================-->
+
+    <!-- jquery plugins here-->
+    <!-- jquery -->
+    <script src="/js/jquery-1.12.1.min.js"></script>
+    <!-- popper js -->
+    <script src="/js/popper.min.js"></script>
+    <!-- bootstrap js -->
+    <script src="/js/bootstrap.min.js"></script>
+    <!-- easing js -->
+    <script src="/js/jquery.magnific-popup.js"></script>
+    <!-- swiper js -->
+    <script src="/js/swiper.min.js"></script>
+    <!-- swiper js -->
+    <script src="/js/masonry.pkgd.js"></script>
+    <!-- particles js -->
+    <script src="/js/owl.carousel.min.js"></script>
+    <script src="/js/jquery.nice-select.min.js"></script>
+    <!-- slick js -->
+    <script src="/js/slick.min.js"></script>
+    <script src="/js/jquery.counterup.min.js"></script>
+    <script src="/js/waypoints.min.js"></script>
+    <script src="/js/contact.js"></script>
+    <script src="/js/jquery.ajaxchimp.min.js"></script>
+    <script src="/js/jquery.form.js"></script>
+    <script src="/js/jquery.validate.min.js"></script>
+    <script src="/js/mail-script.js"></script>
+    <script src="/js/stellar.js"></script>
+    <script src="/js/price_rangs.js"></script>
+    <!-- custom js -->
+    <script src="/js/custom.js"></script>
+</div>
+</html>

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="Shared/_layout" lang="bg">
+<head>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.min.css">
+  <!-- animate CSS -->
+  <link rel="stylesheet" href="/css/animate.css">
+  <!-- owl carousel CSS -->
+  <link rel="stylesheet" href="/css/owl.carousel.min.css">
+  <!-- nice select CSS -->
+  <link rel="stylesheet" href="/css/nice-select.css">
+  <!-- font awesome CSS -->
+  <link rel="stylesheet" href="/css/all.css">
+  <!-- flaticon CSS -->
+  <link rel="stylesheet" href="/css/flaticon.css">
+  <link rel="stylesheet" href="/css/themify-icons.css">
+  <!-- font awesome CSS -->
+  <link rel="stylesheet" href="/css/magnific-popup.css">
+  <!-- swiper CSS -->
+  <link rel="stylesheet" href="/css/slick.css">
+  <link rel="stylesheet" href="/css/price_rangs.css">
+  <!-- style CSS -->
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<div layout:fragment="content">
+<!--================Home Banner Area =================-->
+<!-- breadcrumb start-->
+<section class="breadcrumb breadcrumb_bg">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-8">
+        <div class="breadcrumb_iner">
+          <div class="breadcrumb_iner_item">
+            <h2>Количка</h2>
+            <p>Начало <span>-</span>Количка</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- breadcrumb start-->
+
+<!--================Cart Area =================-->
+<section class="cart_area padding_top">
+  <div class="container">
+    <div class="cart_inner">
+      <div class="table-responsive">
+        <table class="table">
+          <thead>
+          <tr>
+            <th scope="col">Продукт</th>
+            <th scope="col"></th>
+            <th scope="col">Цена</th>
+            <th scope="col">Бройка</th>
+            <th scope="col">Общо</th>
+          </tr>
+          </thead>
+          <tbody>
+
+
+          <tr th:if="${items != null}" th:each="item: ${items}">
+            <td>
+              <div class="media">
+                <div class="d-flex">
+                  <img style="width:300px; height:150px;" th:src="'data:image/jpeg;base64,' + ${imgUtil.getImgData(item.product.image)}" alt="" />
+                </div>
+                <div class="media-body" >
+                  <p th:text="${item.product.name}"></p>
+                </div>
+              </div>
+            </td>
+            <td>
+              <a class="btn_3" th:href="'/User/removeProduct/' + ${item.product.id}" th:text="'изтрий'"></a>
+            </td>
+            <td>
+              <h5 th:text="${#numbers.formatDecimal(item.product.price, 0, 2)} + 'лв.'"></h5>
+            </td>
+            <td>
+              <p th:text="${item.quantity}"></p>
+            </td>
+            <td>
+              <h5 th:text="${#numbers.formatDecimal(item.total, 0, 2)} + 'лв.'"></h5>
+            </td>
+          </tr>
+
+
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>
+              <h5>Общо</h5>
+            </td>
+            <td>
+              <h5 id="total_price" th:if="${total} != null" th:text="${#numbers.formatDecimal(total, 0, 2)} + 'лв.'"></h5>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+        <div class="checkout_btn_inner float-right">
+          <a class="btn_1" href="/Product/all">Продължете да пазарувате</a>
+          <a class="btn_1 checkout_btn_1" th:if="${!isAccepted}" href="/Order/checkout">Продължете до разплащане</a>
+        </div>
+      </div>
+    </div>
+</section>
+<!-- jquery plugins here-->
+<!-- jquery -->
+<script src="/js/jquery-1.12.1.min.js"></script>
+<!-- popper js -->
+<script src="/js/popper.min.js"></script>
+<!-- bootstrap js -->
+<script src="/js/bootstrap.min.js"></script>
+<!-- easing js -->
+<script src="/js/jquery.magnific-popup.js"></script>
+<!-- swiper js -->
+<script src="/js/swiper.min.js"></script>
+<!-- swiper js -->
+<script src="/js/masonry.pkgd.js"></script>
+<!-- particles js -->
+<script src="/js/owl.carousel.min.js"></script>
+<script src="/js/jquery.nice-select.min.js"></script>
+<!-- slick js -->
+<script src="/js/slick.min.js"></script>
+<script src="/js/jquery.counterup.min.js"></script>
+<script src="/js/waypoints.min.js"></script>
+<script src="/js/contact.js"></script>
+<script src="/js/jquery.ajaxchimp.min.js"></script>
+<script src="/js/jquery.form.js"></script>
+<script src="/js/jquery.validate.min.js"></script>
+<script src="/js/mail-script.js"></script>
+<script src="/js/stellar.js"></script>
+<script src="/js/price_rangs.js"></script>
+<!-- custom js -->
+<script src="/js/custom.js"></script>
+
+  </div>
+</html>
